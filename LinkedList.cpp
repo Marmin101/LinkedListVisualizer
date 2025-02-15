@@ -78,5 +78,42 @@ void LinkedList::printList() {
 	std::cout << "nullptr" << std::endl; // Print nullptr at the end of the list
 }
 
+// Partition function for quick sort
+Node* LinkedList::partition(Node* first, Node* last) {
+	int pivot = last->data; // Choose the last element as the pivot
+	Node* current = first->next; // Pointer to traverse the list.
+	Node* pivotTracker = first; // Pointer to keep track of the pivot to swap with the last element if the last element is smaller than the pivot.
+	while (current != last) { // Traverse the list until the last element
+		if (current->data < pivot) { // If the current node is less than the pivot,
+			pivotTracker = (pivotTracker == nullptr) ? first : pivotTracker->next; // Move the j pointer to the next node. HOW THE ? WORKS: What's left of the ?: if it's true, it's set to what's left of the :. If it's false, it's set to what's right of the :. 
+			std::swap(current->data, pivotTracker->data); // Swap the data of the current node and the node pointed by j
+		}
+		current = current->next; // Move the i pointer to the next node
+	}
+	std::swap(pivotTracker->data, last->data); // Swap the data of the pivot and the node pointed by j
+	return pivotTracker; // Return the pivot to divide the list into two parts, used in the quickSortRecursive function
+}
+
+// Recursive function for quick sort
+void LinkedList::quickSortRecursive(Node* first, Node* last) {
+	if (first == nullptr || first == last) { // If the first pointer is null, or the first and last pointers are the same
+		return;
+	}
+	Node* pivot = partition(first, last); // Get the pivot found by the partition function
+	quickSortRecursive(first, pivot); // Recursively call this function with the first and pivot pointers
+	quickSortRecursive(pivot->next, last); // Recursively call this function with the next of the pivot and last pointers
+}
+
+// Quick sort function
+void LinkedList::quickSort() {
+	// Find the last node
+	Node* last = head;
+	while (last != nullptr && last->next != nullptr) { // Traverse the list until the last node that has a next pointer
+		last = last->next; // Move the "last" pointer to the next node, until it reaches the truly last node
+	}
+	// Call the recursive quick sort function
+	quickSortRecursive(head, last);
+}
+
 // I used AI to help me break down what I needed to do to implement the linked list into smaller steps.
 // With its explanations, I added a million comments to help me understand what I was doing.

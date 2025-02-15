@@ -17,4 +17,10 @@ public:
 	void deleteHead();
 	void deleteTail();
 	void printList(); // To debug
+	void quickSort();
+
+private:
+	// Helper function for quick sort
+	Node* partition(Node* first, Node* last);
+	void quickSortRecursive(Node* first, Node* last);
 };
