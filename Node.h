@@ -4,12 +4,12 @@ class Node {
 public:
 	// Declare variables
 	int data;
-	Node* next;
+	Node* next; // Pointer to the next node in the list
 
 	// Constructor to initialize the data and next pointer
 	Node(int value) {
-		data = value;
-		next = nullptr;
+		data = value; // Initialize data to the value passed
+		next = nullptr; // Initialize next to null
 	};
 };
 
