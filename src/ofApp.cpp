@@ -1,4 +1,6 @@
 #include "ofApp.h"
+#include <iostream>
+#include <vector>
 
 //--------------------------------------------------------------
 void ofApp::setup(){
