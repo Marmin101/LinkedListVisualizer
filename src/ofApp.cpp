@@ -44,11 +44,19 @@ void ofApp::draw(){
 
 	// Draw the linked list
 	Node* temp = list.head;
+	while (temp != nullptr) { // (if the temp pointer is not null,)
+		float nextX = x + distanceBetweenNodes; // Calculate the x position of the next node
+		float nextY = y + amplitude * sin(time + (temp->next ? temp->next->data : 0)); // Calculate the y position of the next node (moves up and down with sine wave)
 
-	while (temp != nullptr) {
+		if (temp->next != nullptr) { // (if the next node from the temp pointer is not null,)
+			// Draw the line between current node and next node
+			ofSetColor(50, 50, 50); // Dark grey
+			ofDrawLine(x, y, nextX, nextY); // Draw the line
+		}
+
 		drawNode(temp, x, y); // Draw the node
-		x += distanceBetweenNodes; // Distance between nodes
-		y += amplitude * sin(time + temp->data); // Move the node up and down with sine wave
+		x = nextX; // Update x to next node's position
+		y = nextY; // Update y to next node's position
 		temp = temp->next; // Move to the next node
 	}
 
