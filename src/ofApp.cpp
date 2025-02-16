@@ -5,13 +5,13 @@
 // Declare constants
 float randomMin = 10; 
 float randomMax = 100;
+float distanceBetweenNodes = 200.0;
 
 //--------------------------------------------------------------
 void ofApp::setup(){
 	// Initialization of variables and methods
 	ofSetFrameRate(60); // For the animations
 	ofSetBackgroundColor(240, 240); // Set the background color to off-white
-
 	amplitude = 50.0f;
 	time = 0.0f; // Initialize time to 0
 	cameraX = 0.0f;
@@ -22,6 +22,9 @@ void ofApp::setup(){
 		fontArial.load("arial", i);
 		fontMap[i] = fontArial; // Store the font in the map
 	}
+
+	// Insert the starting head node to the linked list
+	list.insertAtHead(ofRandom(randomMin, randomMax));
 }
 
 //--------------------------------------------------------------
@@ -36,7 +39,7 @@ void ofApp::draw(){
 	ofTranslate(cameraX, 0);
 
 	// Initialize variables
-	float x = 100.0f;
+	float x = 100.0f; // Start drawing at x = 100
 	float y = ofGetHeight() / 2.0f; // Center the linked list on the y-axis
 
 	// Draw the linked list
@@ -44,7 +47,7 @@ void ofApp::draw(){
 
 	while (temp != nullptr) {
 		drawNode(temp, x, y); // Draw the node
-		x += 100.0f; // Distance between nodes
+		x += distanceBetweenNodes; // Distance between nodes
 		y += amplitude * sin(time + temp->data); // Move the node up and down with sine wave
 		temp = temp->next; // Move to the next node
 	}
