@@ -16,7 +16,6 @@ public:
 	void insertAtTail(int value);
 	void deleteHead();
 	void deleteTail();
-	void printList(); // To debug
 	void quickSort();
 
 private:

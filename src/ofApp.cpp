@@ -79,9 +79,6 @@ void ofApp::keyPressed(int key){
 	case 's': // Delete the tail node of the linked list
 		list.deleteTail();
 		break;
-	case 'd': // Print the linked list to the console
-		list.printList();
-		break;
 	case 'z': // Increase amplitude of the sine wave
 		amplitude += 10.0f;
 		break;
@@ -180,6 +177,4 @@ void ofApp::drawNode(Node* node, float x, float y) {
 	// Write the text
 	ofSetColor(255, 255, 255); // White
 	fontArial.drawString(text, centerX, centerY);
-
-	//ofDrawBitmapString(to_string(node->data), x - 10, y + 5); // Draw the size of the node
 }

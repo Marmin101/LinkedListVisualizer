@@ -31,5 +31,5 @@ class ofApp : public ofBaseApp{
 
 		std::map<int, ofTrueTypeFont> fontMap; // Create map to store fonts with sizes
 
-		float cameraX;
+		float cameraX; // Camera position in x
 };
