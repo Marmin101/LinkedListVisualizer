@@ -14,6 +14,7 @@ void ofApp::setup(){
 
 	amplitude = 50.0f;
 	time = 0.0f; // Initialize time to 0
+	cameraX = 0.0f;
 
 	// Load fonts with different sizes on launch (because openFrameworks for some reason doesn't let you set the size after...)
 	for (int i = 10; i <= 100; i++) {
@@ -30,6 +31,10 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+	// Apply camera translation
+	ofPushMatrix();
+	ofTranslate(cameraX, 0);
+
 	// Initialize variables
 	float x = 100.0f;
 	float y = ofGetHeight() / 2.0f; // Center the linked list on the y-axis
@@ -43,6 +48,9 @@ void ofApp::draw(){
 		y += amplitude * sin(time + temp->data); // Move the node up and down with sine wave
 		temp = temp->next; // Move to the next node
 	}
+
+	// Reset the camera translation
+	ofPopMatrix();
 }
 
 //--------------------------------------------------------------
@@ -68,6 +76,15 @@ void ofApp::keyPressed(int key){
 		break;
 	case 'x': // Decrease amplitude of the sine wave
 		amplitude -= 10.0f;
+		break;
+	case 'e': // Quick sort the linked list
+		list.quickSort();
+		break;
+	case OF_KEY_LEFT: // Move the camera to the left
+		cameraX += 10.0f;
+		break;
+	case OF_KEY_RIGHT: // Move the camera to the right
+		cameraX -= 10.0f;
 		break;
 	}
 }

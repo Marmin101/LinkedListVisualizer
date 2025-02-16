@@ -30,4 +30,6 @@ class ofApp : public ofBaseApp{
 		void drawNode(Node* node, float x, float y); // Function to draw the linked list, intakes the node to draw and the x and y coordinates to draw it at
 
 		std::map<int, ofTrueTypeFont> fontMap; // Create map to store fonts with sizes
+
+		float cameraX;
 };

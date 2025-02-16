@@ -81,26 +81,44 @@ void LinkedList::printList() {
 // Partition function for quick sort
 Node* LinkedList::partition(Node* first, Node* last) {
 	int pivot = last->data; // Choose the last element as the pivot
-	Node* current = first->next; // Pointer to traverse the list.
+	Node* current = first; // Pointer to traverse the list.
 	Node* pivotTracker = first; // Pointer to keep track of the pivot to swap with the last element if the last element is smaller than the pivot.
+	
+	std::cout << "Partitioning with pivot: " << pivot << std::endl;
+
 	while (current != last) { // Traverse the list until the last element
-		if (current->data < pivot) { // If the current node is less than the pivot,
-			pivotTracker = (pivotTracker == nullptr) ? first : pivotTracker->next; // Move the j pointer to the next node. HOW THE ? WORKS: What's left of the ?: if it's true, it's set to what's left of the :. If it's false, it's set to what's right of the :. 
+		if (current != nullptr && current->data < pivot) { // If the current node is less than the pivot,
 			std::swap(current->data, pivotTracker->data); // Swap the data of the current node and the node pointed by j
+			pivotTracker = pivotTracker->next; // Move the pivotTracker pointer to the next node. HOW THE ? WORKS: What's left of the ?: if it's true, it's set to what's left of the :. If it's false, it's set to what's right of the :. 
+			
+			std::cout << "Swapping " << current->data << " and " << pivotTracker->data << std::endl;
 		}
 		current = current->next; // Move the i pointer to the next node
 	}
 	std::swap(pivotTracker->data, last->data); // Swap the data of the pivot and the node pointed by j
+	
+	std::cout << "Swapping pivot " << pivotTracker->data << " and " << last->data << std::endl;
+	
 	return pivotTracker; // Return the pivot to divide the list into two parts, used in the quickSortRecursive function
 }
 
 // Recursive function for quick sort
 void LinkedList::quickSortRecursive(Node* first, Node* last) {
-	if (first == nullptr || first == last) { // If the first pointer is null, or the first and last pointers are the same
+	if (first == nullptr || first == last || first->next == nullptr) { // If the first pointer is null, or the first and last pointers are the same, or if there is only one element in the list,
 		return;
 	}
 	Node* pivot = partition(first, last); // Get the pivot found by the partition function
-	quickSortRecursive(first, pivot); // Recursively call this function with the first and pivot pointers
+	
+	std::cout << "Pivot found: " << pivot->data << std::endl;
+
+	if (pivot != first) {
+		Node* temp = first; // Temp pointer to traverse the list
+		while (temp != nullptr && temp->next != pivot) { // While the pointer is not at the pivot and not null,
+			temp = temp->next; // Move the temp pointer to the next node (until it reaches the pivot)
+		}
+		quickSortRecursive(first, temp); // Recursively call this function with the first and temp pointers
+	}
+
 	quickSortRecursive(pivot->next, last); // Recursively call this function with the next of the pivot and last pointers
 }
 
